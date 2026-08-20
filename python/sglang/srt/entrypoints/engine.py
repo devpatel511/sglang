@@ -1117,9 +1117,9 @@ class Engine(EngineScoreMixin, EngineBase):
         ):
             resolve_auto_parsers(server_args)
 
-        # Resolution is complete here; this process goes on to host the
-        # tokenizer manager or the multi-tokenizer router, whose own publish
-        # re-projects the same object.
+        # Resolution is complete here. The TokenizerManager built below asks
+        # `ensure_published` for this same record under this same role, which
+        # is then a no-op; the multi-tokenizer router does not publish at all.
         publish(server_args, role="tokenizer")
 
         # Launch daemons (daemon mode only). The handles travel back to the
